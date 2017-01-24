@@ -26,4 +26,10 @@
     return strpos($value, '@') !== false;
   }
 
+  // has_valid_phone_number('555-555-5555')
+  function has_valid_phone_number($value) {
+    // Return true if value only contains 0-9, spaces, and ()- 
+    return preg_match("/^[0-9-() ']+$/ ", $value);
+  }
+
 ?>
