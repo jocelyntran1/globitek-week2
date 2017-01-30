@@ -75,8 +75,8 @@
     $sql = "INSERT INTO states ";
     $sql .= "(name, code) ";
     $sql .= "VALUES (";
-    $sql .= "'" . $state['name'] . "',";
-    $sql .= "'" . $state['code'] . "'";
+    $sql .= "'" . db_escape($db, $state['name']) . "',";
+    $sql .= "'" . db_escape($db, $state['code']) . "'";
     $sql .= ");";
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -102,9 +102,9 @@
     }
 
     $sql = "UPDATE states SET ";
-    $sql .= "name='" . $state['name'] . "', ";
-    $sql .= "code='" . $state['code'] . "' ";
-    $sql .= "WHERE id='" . $state['id'] . "' ";
+    $sql .= "name='" . db_escape($db, $state['name']) . "', ";
+    $sql .= "code='" . db_escape($db, $state['code']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $state['id']) . "' ";
     $sql .= "LIMIT 1;";
     // For update_state statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -157,12 +157,12 @@
     } elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Name must be between 2 and 255 characters.";
     } elseif (!has_valid_name($territory['name'])) {
-      $errors[] = "Name can only consist of A-Z, a-z, and -."
+      $errors[] = "Name can only consist of A-Z, a-z, and -.";
     }
 
     if (is_blank($territory['position'])) {
       $errors[] = "Position cannot be blank.";
-    } elseif (!has_length($territory['position'], array('min' => 2, 'max' => 255))) {
+    } elseif (!has_length($territory['position'], array('max' => 255))) {
       $errors[] = "Position must be less than 255 characters.";
     } elseif (!is_numeric($territory['position'])) { 
       $errors[] = "Position must be a number.";
@@ -186,9 +186,9 @@
     $sql = "INSERT INTO territories ";
     $sql .= "(name, state_id, position) ";
     $sql .= "VALUES (";
-    $sql .= "'" . $territory['name'] . "',";
-    $sql .= "'" . $territory['state_id'] . "',";
-    $sql .= "'" . $territory['position'] . "'";
+    $sql .= "'" . db_escape($db, $territory['name']) . "',";
+    $sql .= "'" . db_escape($db, $territory['state_id']) . "',";
+    $sql .= "'" . db_escape($db, $territory['position']) . "'";
     $sql .= ");";
 
     // For INSERT statments, $result is just true/false
@@ -215,10 +215,10 @@
     }
 
     $sql = "UPDATE territories SET ";
-    $sql .= "name='" . $territory['name'] . "', ";
-    $sql .= "state_id='" . $territory['state_id'] . "', ";
-    $sql .= "position='" . $territory['position'] . "' ";
-    $sql .= "WHERE id='" . $territory['id'] . "' ";
+    $sql .= "name='" . db_escape($db, $territory['name']) . "', ";
+    $sql .= "state_id='" . db_escape($db, $territory['state_id']) . "', ";
+    $sql .= "position='" . db_escape($db, $territory['position']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $territory['id']) . "' ";
     $sql .= "LIMIT 1;";
 
     // For update_territory statments, $result is just true/false
@@ -276,7 +276,7 @@
     } elseif (!has_length($salesperson['first_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
     } elseif (!has_valid_name($salesperson['first_name'])) {
-      $errors[] = "Name can only consist of A-Z, a-z, and -."
+      $errors[] = "Name can only consist of A-Z, a-z, and -.";
     }
 
     if (is_blank($salesperson['last_name'])) {
@@ -284,7 +284,7 @@
     } elseif (!has_length($salesperson['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Last name must be between 2 and 255 characters.";
     } elseif (!has_valid_name($salesperson['last_name'])) {
-      $errors[] = "Name can only consist of A-Z, a-z, and -."
+      $errors[] = "Name can only consist of A-Z, a-z, and -.";
     }
 
     if (is_blank($salesperson['phone'])) {
@@ -317,10 +317,10 @@
     $sql = "INSERT INTO salespeople ";
     $sql .= "(first_name, last_name, phone, email) ";
     $sql .= "VALUES (";
-    $sql .= "'" . $salesperson['first_name'] . "',";
-    $sql .= "'" . $salesperson['last_name'] . "',";
-    $sql .= "'" . $salesperson['phone'] . "',";
-    $sql .= "'" . $salesperson['email'] . "'";
+    $sql .= "'" . db_escape($db, $salesperson['first_name']) . "',";
+    $sql .= "'" . db_escape($db, $salesperson['last_name']) . "',";
+    $sql .= "'" . db_escape($db, $salesperson['phone']) . "',";
+    $sql .= "'" . db_escape($db, $salesperson['email']) . "'";
     $sql .= ");";
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -346,11 +346,11 @@
     }
 
     $sql = "UPDATE salespeople SET ";
-    $sql .= "first_name='" . $salesperson['first_name'] . "', ";
-    $sql .= "last_name='" . $salesperson['last_name'] . "', ";
-    $sql .= "phone='" . $salesperson['phone'] . "', ";
-    $sql .= "email='" . $salesperson['email'] . "' ";
-    $sql .= "WHERE id='" . $salesperson['id'] . "' ";
+    $sql .= "first_name='" . db_escape($db, $salesperson['first_name']) . "', ";
+    $sql .= "last_name='" . db_escape($db, $salesperson['last_name']) . "', ";
+    $sql .= "phone='" . db_escape($db, $salesperson['phone']) . "', ";
+    $sql .= "email='" . db_escape($db, $salesperson['email']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $salesperson['id']) . "' ";
     $sql .= "LIMIT 1;";
     // For update_salesperson statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -406,7 +406,7 @@
     } elseif (!has_length($user['first_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
     } elseif (!has_valid_name($user['first_name'])) {
-      $errors[] = "First name can only consist of A-Z, a-z, and -."
+      $errors[] = "First name can only consist of A-Z, a-z, and -.";
     }
 
     if (is_blank($user['last_name'])) {
@@ -414,7 +414,7 @@
     } elseif (!has_length($user['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Last name must be between 2 and 255 characters.";
     } elseif (!has_valid_name($user['last_name'])) {
-      $errors[] = "Last name can only consist of A-Z, a-z, and -."
+      $errors[] = "Last name can only consist of A-Z, a-z, and -.";
     }
 
     if (is_blank($user['email'])) {
@@ -447,10 +447,10 @@
     $sql = "INSERT INTO users ";
     $sql .= "(first_name, last_name, email, username, created_at) ";
     $sql .= "VALUES (";
-    $sql .= "'" . $user['first_name'] . "',";
-    $sql .= "'" . $user['last_name'] . "',";
-    $sql .= "'" . $user['email'] . "',";
-    $sql .= "'" . $user['username'] . "',";
+    $sql .= "'" . db_escape($db, $user['first_name']) . "',";
+    $sql .= "'" . db_escape($db, $user['last_name']) . "',";
+    $sql .= "'" . db_escape($db, $user['email']) . "',";
+    $sql .= "'" . db_escape($db, $user['username']) . "',";
     $sql .= "'" . $created_at . "',";
     $sql .= ");";
     // For INSERT statments, $result is just true/false
@@ -477,11 +477,11 @@
     }
 
     $sql = "UPDATE users SET ";
-    $sql .= "first_name='" . $user['first_name'] . "', ";
-    $sql .= "last_name='" . $user['last_name'] . "', ";
-    $sql .= "email='" . $user['email'] . "', ";
-    $sql .= "username='" . $user['username'] . "' ";
-    $sql .= "WHERE id='" . $user['id'] . "' ";
+    $sql .= "first_name='" . db_escape($db, $user['first_name']) . "', ";
+    $sql .= "last_name='" . db_escape($db, $user['last_name']) . "', ";
+    $sql .= "email='" . db_escape($db, $user['email']) . "', ";
+    $sql .= "username='" . db_escape($db, $user['username']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $user['id']) . "' ";
     $sql .= "LIMIT 1;";
     // For update_user statments, $result is just true/false
     $result = db_query($db, $sql);
