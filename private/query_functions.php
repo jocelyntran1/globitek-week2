@@ -55,7 +55,10 @@
       $errors[] = "Code cannot be blank.";
     } elseif (!has_length($state['code'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Code must be between 2 and 255 characters.";
+    } elseif (!has_valid_state_code($state['code'])) {
+      $errors[] = "Code has to be capitalized.";
     }
+
     return $errors;
   }
 
@@ -153,6 +156,8 @@
       $errors[] = "Name cannot be blank.";
     } elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Name must be between 2 and 255 characters.";
+    } elseif (!has_valid_name($territory['name'])) {
+      $errors[] = "Name can only consist of A-Z, a-z, and -."
     }
 
     if (is_blank($territory['position'])) {
@@ -161,6 +166,8 @@
       $errors[] = "Position must be less than 255 characters.";
     } elseif (!is_numeric($territory['position'])) { 
       $errors[] = "Position must be a number.";
+    } elseif (!is_positive($territory['position'])) {
+      $errors[] = "Position must be positive.";
     }
 
     return $errors;
@@ -268,12 +275,16 @@
       $errors[] = "First name cannot be blank.";
     } elseif (!has_length($salesperson['first_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
+    } elseif (!has_valid_name($salesperson['first_name'])) {
+      $errors[] = "Name can only consist of A-Z, a-z, and -."
     }
 
     if (is_blank($salesperson['last_name'])) {
       $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($salesperson['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Last name must be between 2 and 255 characters.";
+    } elseif (!has_valid_name($salesperson['last_name'])) {
+      $errors[] = "Name can only consist of A-Z, a-z, and -."
     }
 
     if (is_blank($salesperson['phone'])) {
@@ -394,12 +405,16 @@
       $errors[] = "First name cannot be blank.";
     } elseif (!has_length($user['first_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
+    } elseif (!has_valid_name($user['first_name'])) {
+      $errors[] = "First name can only consist of A-Z, a-z, and -."
     }
 
     if (is_blank($user['last_name'])) {
       $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($user['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Last name must be between 2 and 255 characters.";
+    } elseif (!has_valid_name($user['last_name'])) {
+      $errors[] = "Last name can only consist of A-Z, a-z, and -."
     }
 
     if (is_blank($user['email'])) {
@@ -412,6 +427,8 @@
       $errors[] = "Username cannot be blank.";
     } elseif (!has_length($user['username'], array('max' => 255))) {
       $errors[] = "Username must be less than 255 characters.";
+    } elseif (!has_valid_username($user['username'])) {
+      $errors[] = "Username can only contain A-Z, a-z, 0-9, and _.";
     }
     return $errors;
   }

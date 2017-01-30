@@ -32,4 +32,29 @@
     return preg_match("/^[0-9-() ']+$/ ", $value);
   }
 
+  // Custom Validation for state codes
+  // Checks if all the letters in value are capital
+  function has_valid_state_code($value) {
+    return ctype_upper($value);
+  }
+
+  // Custom validation for territory positions
+  function has_valid_territory_position($value) {
+    return is_numeric($value);
+  }
+
+  // Custom validation for names (A-Z, a-z, -)
+  function has_valid_name($value) {
+    return preg_match("/^[A-Za-z- ']+$/ ", $value);
+  }
+
+  // Custom validation for username (A-Z, a-z, 0-9, and _)
+  function has_valid_username($value) {
+    return preg_match("/^[A-Za-z0-9_']+$/ ", $value);
+  }
+
+  // Custom validation for positive numbers
+  function is_positive($value) {
+    return $value > 0;
+  }
 ?>
