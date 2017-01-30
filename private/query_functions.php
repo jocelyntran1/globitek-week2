@@ -159,7 +159,10 @@
       $errors[] = "Position cannot be blank.";
     } elseif (!has_length($territory['position'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Position must be less than 255 characters.";
+    } elseif (!is_numeric($territory['position'])) { 
+      $errors[] = "Position must be a number.";
     }
+
     return $errors;
   }
 
@@ -173,7 +176,14 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "INSERT INTO territories ";
+    $sql .= "(name, state_id, position) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $territory['name'] . "',";
+    $sql .= "'" . $territory['state_id'] . "',";
+    $sql .= "'" . $territory['position'] . "'";
+    $sql .= ");";
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -197,7 +207,13 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE territories SET ";
+    $sql .= "name='" . $territory['name'] . "', ";
+    $sql .= "state_id='" . $territory['state_id'] . "', ";
+    $sql .= "position='" . $territory['position'] . "' ";
+    $sql .= "WHERE id='" . $territory['id'] . "' ";
+    $sql .= "LIMIT 1;";
+
     // For update_territory statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {

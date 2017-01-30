@@ -15,7 +15,7 @@ if(is_post_request()) {
 
   // Confirm values are present before sccessing them
   if(isset($_POST['name'])) { $territory['name'] = $_POST['name']; }
-  if(isset($_POST['position'])) { $territory['position'] = $_POST['postion']; }
+  if(isset($_POST['position'])) { $territory['position'] = $_POST['position']; }
 
   $result = update_territory($territory);
   if($result == true) {
@@ -35,11 +35,11 @@ if(is_post_request()) {
 
   <?php echo display_errors($errors); ?>
 
-  <form action="edit.php?id=<?php echo territory['id']; ?>" method="post">
+  <form action="edit.php?id=<?php echo $territory['id']; ?>" method="post">
     Name:<br />
-    <input type="text" name="name" value="<?php echo territory['name']; ?>" /><br />
+    <input type="text" name="name" value="<?php echo $territory['name']; ?>" /><br />
     Position<br />
-    <input type="text" name="position" value="<?php echo $territory['position']; ?>" /> <br />
+    <input type="number" name="position" value="<?php echo $territory['position']; ?>" /> <br />
     <br />
     <input type="submit" name="submit" value="Update" />
   </form>

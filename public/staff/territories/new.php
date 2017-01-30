@@ -5,6 +5,7 @@ require_once('../../../private/initialize.php');
 $errors = array();
 $territory = array(
   'name' => '',
+  'state_id' => 0,
   'position' => ''
 );
 
@@ -13,7 +14,9 @@ if(is_post_request()) {
   // Confirm that values are present before accessing them.
   if(isset($_POST['name'])) { $territory['name'] = $_POST['name']; }
   if(isset($_POST['position'])) { $territory['position'] = $_POST['position']; }
-
+  
+  $territory['state_id'] = $_GET['id'];
+  
   $result = insert_territory($territory);
   if($result === true) {
     $new_id = db_insert_id($db);
@@ -37,7 +40,7 @@ if(is_post_request()) {
     Name:<br />
     <input type="text" name="name" value="<?php echo $territory['name']; ?>" /><br />
     Position:<br />
-    <input type="text" name="position" value="<?php echo $territory['position']; ?>" /><br />
+    <input type="number" name="position" value="<?php echo $territory['position']; ?>" /><br />
     <br />
     <input type="submit" name="submit" value="Create"  />
   </form>
